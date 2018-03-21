@@ -32,7 +32,7 @@ variable "tags" {
 # Resources
 # =======================================
 
-resource "aws_subnet" "subnets" {
+resource "aws_subnet" "subnet" {
   count = "${length(var.subnets)}"
 
   vpc_id            = "${var.vpc_id}"
