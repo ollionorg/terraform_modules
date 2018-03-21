@@ -49,5 +49,5 @@ resource "aws_subnet" "subnet" {
 
 # Outputs
 # =======================================
-output ids   { value = "${join(",", aws_subnet.subnets.*.id)}" }
-output names { value = "${join(",", aws_subnet.subnets.*.tags.Name)}" }
+output ids   { value = "${join(",", aws_subnet.subnet.*.id)}" }
+output names { value = "${join(",", aws_subnet.subnet.*.tags.Name)}" }
