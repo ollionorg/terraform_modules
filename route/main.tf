@@ -2,6 +2,11 @@
 # Variables
 # ========================================
 
+variable "provider" {
+  default = ""
+  description = "The name or alias for the provider to use"
+}
+
 variable "vpc_id" { 
   description = "The ID for the VPC to launch the subnets in" 
 }
@@ -23,7 +28,8 @@ data "aws_route_table" "current" {
 # =======================================
 
 resource "aws_route" "route" {
-  count = "${length(var.routes)}"
+  provider = "${var.provider}"
+  count    = "${length(var.routes)}"
 
   route_table_id              = "${data.aws_route_table.current.id}"
   destination_cidr_block      = "${lookup(var.routes[count.index],"destination_cidr_block", "")}"

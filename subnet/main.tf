@@ -8,6 +8,11 @@ data "aws_region" "current" {}
 # Variables
 # ========================================
 
+variable "provider" {
+  default = ""
+  description = "The name or alias for the provider to use"
+}
+
 variable "vpc_id" { 
   description = "The ID for the VPC to launch the subnets in" 
 }
@@ -33,7 +38,8 @@ variable "tags" {
 # =======================================
 
 resource "aws_subnet" "subnet" {
-  count = "${length(var.subnets)}"
+  provider = "${var.provider}"
+  count    = "${length(var.subnets)}"
 
   vpc_id            = "${var.vpc_id}"
   cidr_block        = "${element(values(var.subnets), count.index)}"
