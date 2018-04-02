@@ -1,17 +1,6 @@
 
-# Data Sources
-# ========================================
-data "aws_region" "current" {}
-
-
-
 # Variables
 # ========================================
-
-variable "provider" {
-  default = ""
-  description = "The name or alias for the provider to use"
-}
 
 variable "vpc_id" { 
   description = "The ID for the VPC to launch the subnets in" 
@@ -34,11 +23,18 @@ variable "tags" {
 }
 
 
+# Data Sources
+# ========================================
+data "aws_region" "current" {}
+data "aws_vpc" "selected" {
+  id = "${var.vpc_id}"
+}
+
+
 # Resources
 # =======================================
 
 resource "aws_subnet" "subnet" {
-  provider = "${var.provider}"
   count    = "${length(var.subnets)}"
 
   vpc_id            = "${var.vpc_id}"
